@@ -8,22 +8,28 @@ const Home = () => {
     { title: "Web dev top tips", body: "loren ipsum", author: "luigi", id: 3 },
   ]);
 
+  const [name, setName] = useState("Mario");
+
   const handleDelete = (id) => {
     const newBlogs = blogs.filter((blog) => blog.id !== id);
     setBlogs(newBlogs);
   };
 
   useEffect(() => {
-    console.log(blogs);
+    fetch("http://localhost:8000/blogs")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        setBlogs(data);
+      });
   }, []);
 
   return (
     <div className="home">
-      <BlogList blogs={blogs} title="All Blogs" />
-      <BlogList
-        blogs={blogs.filter((blog) => blog.author === "mario")}
-        title="Mario's blogs"
-      />
+      {blogs && (
+        <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />
+      )}
     </div>
   );
 };
