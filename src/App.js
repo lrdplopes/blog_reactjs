@@ -3,6 +3,8 @@ import Navbar from "./Components/Navbar";
 import Home from "./Components/Home";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Create from "./Create";
+import BlogDetails from "./Components/BlogDetails";
+import NotFound from './Components/NotFound';
 
 const App = () => {
   return (
@@ -17,6 +19,13 @@ const App = () => {
             </Route>
             <Route path="/create">
               <Create />
+            </Route>
+            <Route path="/blogs/:id">
+              <BlogDetails />
+              <Create />
+            </Route>
+            <Route path='*'>
+              <NotFound />
             </Route>
           </Switch>
         </div>
